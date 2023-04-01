@@ -12,14 +12,14 @@ graph LR
 
 ```
 
-The overall process for using this with Midjourney is:
+The process for generating a Midjourney prompt and image using the Jupyter notebook can be described in the following steps:
 
- 1. User enters image description into Jupyter notebook.
- 2. Jupyter notebook uses OpenAI API to generate a prompt from GPT-3.5.
- 3. Jupyter notebook processes the generated prompt as a safeguard against hallucinations.
- 4. Jupyter notebook copies the generated and processed prompt to the user's clipboard.
- 5. User pastes generated prompt into Midjourney.
- 6. Midjourney generates image for user.
+The user enters an image description into the Jupyter notebook interface.
+The Jupyter notebook sends the image description to the OpenAI API, which generates a prompt using the GPT-3.5 model.
+The generated prompt is processed by the Jupyter notebook to ensure its validity and to act as a safeguard against potential hallucinations.
+The Jupyter notebook copies the processed prompt to the user's clipboard automatically.
+The user pastes the generated prompt into the Midjourney platform.
+Midjourney processes the prompt and generates the corresponding image for the user.
 
 ```mermaid
 sequenceDiagram
