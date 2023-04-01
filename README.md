@@ -1,6 +1,16 @@
 # Midjourney Image Prompt Generator
 
-This Jupyter notebook helps you generate image-generation prompts for the Midjourney AI image generation service. It uses OpenAI's GPT-3.5-turbo to generate the prompts based on your input description of the desired image.''
+This Jupyter notebook helps you generate image-generation prompts for the Midjourney AI image generation service. It uses OpenAI's GPT-3.5-turbo to generate the prompts based on your input description of the desired image.
+
+This project includes a `system_prompt.txt` file that the notebook reads, and then uses in the starting message for a ChatGPT session.  The prompt engineering is all in that file, and you can adjust that to tweak your default Midjourney parameters.
+
+```mermaid
+graph LR
+    C[System Prompt] --> B
+    A[User's Image Description] --> B
+    B{GPT-3.5} --> D[Generated Midjourney Prompt]
+
+```
 
 The overall process for using this with Midjourney is:
 
@@ -56,7 +66,7 @@ git clone https://github.com/your_username/midjourney-image-prompt-generator.git
 ```bash
 jupyter notebook midjourney_image_prompt_generator.ipynb
 ```
-2. Run the cells in the notebook in order.
+2. Run ALL the cells in the notebook in order.  You must run the cells at the end to define functions before you can generate prompts.
 3. In the interactive UI, enter a description of the image you want to generate in the text input field.
 4. Click the "Generate" button. The generated prompt will be displayed and automatically copied to your clipboard.
 5. Use the generated prompt with the Midjourney AI image generation service.
