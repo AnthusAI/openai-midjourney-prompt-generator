@@ -38,18 +38,8 @@ To use this notebook, you'll need:
 
 ## Dependencies
 
-This notebook requires the following Python libraries:
-
-- `openai`
-- `textwrap`
-- `ipywidgets`
-- `pyperclip`
-
-You can install these packages using pip:
-
-```bash
-pip install openai ipywidgets pyperclip
-```
+This notebook requires a few Python libraries.  The first cell of the notebook
+will attempt to install and load the libraries.
 
 ## Setup
 
@@ -57,9 +47,8 @@ pip install openai ipywidgets pyperclip
 ```bash
 git clone https://github.com/your_username/midjourney-image-prompt-generator.git
 ```
-
-2. Save your OpenAI API key in a file named openai_api_key.txt in the same folder as the Jupyter notebook.
-3. If you want to modify the system prompt used by GPT-3.5-turbo, edit the system_prompt.txt file.
+2. Save your OpenAI API key in a file named `openai_api_key.txt` in the same folder as the Jupyter notebook.
+3. If you want to modify the system prompt used by GPT-3.5-turbo, edit the `system_prompt.txt` file.
 
 ## Usage
 
