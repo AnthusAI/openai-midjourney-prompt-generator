@@ -1,0 +1,4 @@
+openai
+ipywidgets
+pyperclip
+textwrap3

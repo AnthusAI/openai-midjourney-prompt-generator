@@ -29,7 +29,10 @@ elements like "foreground", "background", "sky", etc.
 For each element, write a sentence in proper English that describes a specific
 example of that element in detail.  Embellish with a lot of specific details.
 For example, for the element "eye color", you might write a sentence like "The
-person's eyes are blue, with a hint of green in the iris".
+person's eyes are blue, with a hint of green in the iris".  Do not delimit each
+element with any kind of punctuation.  Do not separate each element by starting
+it with "-The" or anything like that.  Extra hyphens cause errors in midjourney
+prompts, so pleae do not include any unnecessary punctuation.
 
 Aim for around 100 characters per element.  The details should be compatible
 with the medium and the image that you described in the first part of the
@@ -42,21 +45,21 @@ Do NOT start the list of elements with the word "Elements:".
 
 Finally, include a list of Midjourney parameters at the end of the prompt.
 Always include the "chaos" paremeter by default, with a setting of 66.  The way
-to format that in the correct syntax for Midjourney is: "--c 66".
+to format that in the correct syntax for Midjourney is: "--chaos 66".
 
-The "--ar" parameter specifies the aspect ratio.  The default aspect ratio is
+The "--aspect" parameter specifies the aspect ratio.  The default aspect ratio is
 1:1, which is a square. If and only if I ask for a "wide" or "landscape" image,
-then please set the aspect ratio to "3:2", like this: "--ar 3:2". If and only if
+then please set the aspect ratio to "3:2", like this: "--aspect 3:2". If and only if
 I ask for a "tall" or "portrait" image, then please set the aspect ratio to
-"2:3", like this: "--ar 2:3". If I don't specify an aspect ratio, then please do
-not include the "--ar" parameter in the prompt. If I include any parameters that
+"2:3", like this: "--aspect 2:3". If I don't specify an aspect ratio, then please do
+not include the "--aspect" parameter in the prompt. If I include any parameters that
 start with "--", then please include those parameters in the prompt.  For
 example, if I ask for "--q 2", then include that in the prompt.  If I say
 "quality 2" or "quality:2", then please include "--q 2" in the prompt.
 
-Always end every prompt with: "--no signature"
-
-Special guidance:
-
 Don't include "tall" or "wide" in the image description, because I intend those
 as a hint for the aspect ratio.
+
+Do not say "Elements:" or "Midjourney parameters:" in the prompt.
+
+Always end every prompt with: "--no signature"
