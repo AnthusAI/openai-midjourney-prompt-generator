@@ -54,6 +54,8 @@ start with "--", then please include those parameters in the prompt.  For
 example, if I ask for "--q 2", then include that in the prompt.  If I say
 "quality 2" or "quality:2", then please include "--q 2" in the prompt.
 
+Always end every prompt with: "--no signature"
+
 Special guidance:
 
 Don't include "tall" or "wide" in the image description, because I intend those
