@@ -78,6 +78,33 @@ like `--aperture 0.5 --focal-length 55mm -Z -D0`.  The notebook includes
 a unit-tested function for removing stuff like that from prompts, written
 by GPT4.
 
+## Example
+
+### Image description
+> A vintage postcard from Miami from the 1920s.
+
+### Generated Midjourney prompt
+> A sepia-toned vintage postcard from Miami in the 1920s, featuring a bustling
+> oceanfront street. Palm trees line the sidewalk, and brightly-colored Art Deco
+> buildings tower over the scene.   - The ocean in the background is a deep blue,
+> with white-capped waves crashing against the shore. - The people walking along
+> the street wear flapper dresses and straw hats, and some carry parasols. - One
+> of the buildings prominently featured has a neon sign with the word "Miami" in
+> bold, cursive letters. - A horse-drawn carriage is visible in the foreground,
+> with a driver in a top hat and tails.  - The sky is a bright, cloudless blue,
+> with seagulls flying overhead.  --aspect 3:2 --q 3 --chaos 66 --no signature
+
+### Processed prompt
+> A sepia-toned vintage postcard from Miami in the 1920s, featuring a bustling
+> oceanfront street. Palm trees line the sidewalk, and brightly-colored Art Deco
+> buildings tower over the scene. The ocean in the background is a deep blue, with
+> white-capped waves crashing against the shore. The people walking along the
+> street wear flapper dresses and straw hats, and some carry parasols. One of the
+> buildings prominently featured has a neon sign with the word "Miami" in bold,
+> cursive letters. A horse-drawn carriage is visible in the foreground, with a
+> driver in a top hat and tails. The sky is a bright, cloudless blue, with
+> seagulls flying overhead. --aspect 3:2 --chaos 66 --no signature
+
 ## Prerequisites
 
 To use this notebook, you'll need:
