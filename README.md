@@ -105,6 +105,9 @@ by GPT4.
 > driver in a top hat and tails. The sky is a bright, cloudless blue, with
 > seagulls flying overhead. --aspect 3:2 --chaos 66 --no signature
 
+The notebook will copy the processed prompt to your clipboard so that you
+can paste it into Discord to the Midjourney bot.
+
 ## Prerequisites
 
 To use this notebook, you'll need:
@@ -125,7 +128,7 @@ will attempt to install and load the libraries.
 git clone https://github.com/your_username/midjourney-image-prompt-generator.git
 ```
 2. Save your OpenAI API key in a file named `openai_api_key.txt` in the same folder as the Jupyter notebook.
-3. If you want to modify the system prompt used by GPT-3.5-turbo, edit the `system_prompt.txt` file.
+3. If you want to modify the system prompt used by GPT-3.5-turbo, edit the `system_prompt.txt` file.''
 
 ## Usage
 
