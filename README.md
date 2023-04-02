@@ -6,9 +6,10 @@ This project includes a `system_prompt.txt` file that the notebook reads, and th
 
 ```mermaid
 graph LR
-    C[System Prompt] --> B
     A[User's Image Description] --> B
-    B{GPT-3.5} --> D[Generated Midjourney Prompt]
+    C[System Prompt] --> B
+    B{GPT-3.5} --> D
+    D{process} --> E[Generated Midjourney Prompt]
 
 ```
 
