@@ -1,6 +1,6 @@
 # Midjourney Image Prompt Generator
 
-This Jupyter notebook helps you generate image-generation prompts for the Midjourney AI image generation service. It uses OpenAI's GPT-3.5-turbo to generate the prompts based on your input description of the desired image.
+This Jupyter notebook helps you generate image-generation prompts for the Midjourney AI image generation service. It uses OpenAI's GPT-3.5-turbo to generate the prompts based on your input description of the desired image.  Many thanks to GPT4 and GitHub Copilot for writing nearly 100% of the code in this project.
 
 This project includes a `system_prompt.txt` file that the notebook reads, and then uses in the starting message for a ChatGPT session.  The prompt engineering is all in that file, and you can adjust that to tweak your default Midjourney parameters.
 
@@ -37,6 +37,45 @@ sequenceDiagram
     Midjourney->>User: Generate image
 
 ```
+
+## Prompt engineering
+
+The system prompt instructs GPT 3.5 to start the prompt with a full sentence,
+in proper English, that starts with the medium and then describes the image.
+It specifes that we want details like camera type and lens and film type
+if it's a photograph, and the type of painting if it's an oil painting.
+
+Then it tells the LLM to imagine a list of about five elements of a photo
+like that.  So, if it's a portrait of a person then the elements might be
+pose, clothing, hair, etc.  If you asked for a picture of a mountain range
+then the elements might be foreground, weather conditions, time of day, etc.
+
+It tells the model to write a full sentence for each element, imagining
+specific details for that element.  The specific details need to be
+appropriate for the image requested by the user.
+
+Then, the model completes the prompt by adding a set of Midjourney parameters
+I personally like `--chaos 66" by default, and so it always includes that.
+I don't like signatures on the bottoms of my images that look like paintings,
+so I asked to always add `--no signature`.  I'm trying to teach it to
+generate appropriate aspect ratio parameters.
+
+## Prompt processing
+
+The LLM will sometimes generate prompts that won't work in Midjourney.  This
+notebook processes the output from the LLM to try to safeguard against some
+of the more common problems.
+
+One is that the model will sometimes delimit the individual elements with
+`-`, like `...all the way to the sea.  -The waves ware angled...`  The
+processing step will remove the `-` and make it `...sea. The waves...`
+
+LLMs will also sometimes hallucinate parameters that Midjourney doesn't
+support, despite my best attempts in the system prmpot to tell it not to
+do that.  It will sometimes add parameters that don't exist in Midjourney,
+like `--aperture 0.5 --focal-length 55mm -Z -D0`.  The notebook includes
+a unit-tested function for removing stuff like that from prompts, written
+by GPT4.
 
 ## Prerequisites
 
