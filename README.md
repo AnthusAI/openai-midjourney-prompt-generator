@@ -104,10 +104,7 @@ will attempt to install and load the libraries.
 
 ## Setup
 
-1. Clone this repository to your local machine:
-```bash
-git clone https://github.com/your_username/midjourney-image-prompt-generator.git
-```
+1. Clone this repository to your local machine.
 2. Save your OpenAI API key in a file named `openai_api_key.txt` in the same folder as the Jupyter notebook.
 3. If you want to modify the system prompt used by GPT-3.5-turbo, edit the `system_prompt.txt` file.''
 
