@@ -2,6 +2,30 @@
 
 This Jupyter notebook helps you generate image-generation prompts for the Midjourney AI image generation service. It uses OpenAI's GPT-3.5-turbo to generate the prompts based on your input description of the desired image.  Many thanks to GPT4 and GitHub Copilot for writing nearly 100% of the code in this project.  And, most of this README.  Including the diagrams.
 
+# Example
+
+In this example, I want to use Midjourney to generate an image of "Miami Beach."
+But that's vague, and Midjourney works a lot better if you give it specifics.  And
+so, I'm using GPT 3.5 to imagine a specific image of Miami Beach, and to describe the elements in that image.
+
+![Alt text](screenshots/miami_beach_input.png)
+
+After pressing the "generate" button, GPT 3.5 imagines a medium for an image like I'm describing.  If I tell it that I want a picture of a person smiling, then it isn't going to select "landscape photograph" for the medium, since that wouldn't make sense.  It imagines a lot of detail for the medium, so if it's a photograph then it will specify the camera, film and lens.  If it's a painting then it will describe what kind and what techniques and what color palette.
+
+It will also add more detail into the description of the image that you give it.  It will try to add details that make sense for what you requested.
+
+Then, it will imagine a list of elements for the image.  If it's a street photograph of a person then it might select elements like hair style, clothing, and facial expression.  If it's a landscape painting then it might select elements like foreground, weather conditions, and time of day.
+
+![Alt text](screenshots/generated_miami_beach_prompt.png)
+
+The notebook then uses unit-tested code to parse that response and extract the elements, and then recombine it into a single line of text.  It uses unit-tested Python functions to generate a parameter list, given your UI settings, and append that to the prompt:
+
+> Digital illustration with a flat, stylized aesthetic for use in advertising. An illustration capturing the vibrant energy of Miami Beach, with the iconic pastel-colored art deco buildings and palm trees lining the streets. The art deco buildings are painted in pastel colors, with sharp geometric lines and decorative accents. Palm The tall palm trees are silhouetted against the clear blue sky, their fronds rustling in the breeze. The white sand beach stretches along the shoreline, with turquoise waves lapping at the shore. Crowds of people, dressed in brightly colored swimsuits and beachwear, are seen strolling along the boardwalk and lounging on the sand. Neon Bright neon signs advertising hotels, restaurants, and clubs line the streets, adding to the energetic atmosphere. --chaos 66 --no signature --seed 0
+
+# Mechanism
+
+The overall idea is to use OpenAI for what it's good at: Imagining appropriate details.  And to use Python for what it's good at: Deterministically assembling prompts, given imagined details.
+
 This project includes a `system_prompt.txt` file that the notebook reads, and then uses in the starting message for a ChatGPT session.  The prompt engineering is all in that file, and you can adjust that to tweak your default Midjourney parameters.
 
 ```mermaid
@@ -13,11 +37,11 @@ graph LR
 
 ```
 
-The process for generating a Midjourney prompt and image using the Jupyter notebook can be described in the following steps:
+The overall process of generating an image with this tool and OpenAI and Midjourney looks like this:
 
 1. The user enters an image description into the Jupyter notebook interface.
 2. The Jupyter notebook sends the image description to the OpenAI API, which generates a prompt using the GPT-3.5 model.
-3. The generated prompt is processed by the Jupyter notebook to ensure its validity and to act as a safeguard against potential hallucinations.
+3. The generated prompt is processed by the Jupyter notebook to assemble the elements and parameters into a valid prompt.
 4. The Jupyter notebook copies the processed prompt to the user's clipboard automatically.
 5. The user pastes the generated prompt into the Midjourney platform.
 6. Midjourney processes the prompt and generates the corresponding image for the user.
@@ -51,62 +75,19 @@ like that.  So, if it's a portrait of a person then the elements might be
 pose, clothing, hair, etc.  If you asked for a picture of a mountain range
 then the elements might be foreground, weather conditions, time of day, etc.
 
-It tells the model to write a full sentence for each element, imagining
+It then tells the model to write a full sentence for each element, imagining
 specific details for that element.  The specific details need to be
 appropriate for the image requested by the user.
 
-Then, the model completes the prompt by adding a set of Midjourney parameters
-I personally like `--chaos 66" by default, and so it always includes that.
-I don't like signatures on the bottoms of my images that look like paintings,
-so I asked to always add `--no signature`.  I'm trying to teach it to
-generate appropriate aspect ratio parameters.
+Those are the basic elements that we need for building a prompt.  But, we don't want to use an LLM for doing something like that.  It's better to use deterministic code that we can cover with unit tests to keep it stable and reliable.
 
 ## Prompt processing
 
-The LLM will sometimes generate prompts that won't work in Midjourney.  This
-notebook processes the output from the LLM to try to safeguard against some
-of the more common problems.
+The raw prompt returned by the OpenAI API will look like this:
 
-One is that the model will sometimes delimit the individual elements with
-`-`, like `...all the way to the sea.  -The waves ware angled...`  The
-processing step will remove the `-` and make it `...sea. The waves...`
+> Medium: Digital illustration with a flat, stylized aesthetic for use in advertising. Description: An illustration capturing the vibrant energy of Miami Beach, with the iconic pastel-colored art deco buildings and palm trees lining the streets. Elements: Buildings: The art deco buildings are painted in pastel colors, with sharp geometric lines and decorative accents. Palm trees: The tall palm trees are silhouetted against the clear blue sky, their fronds rustling in the breeze. Beach: The white sand beach stretches along the shoreline, with turquoise waves lapping at the shore. People: Crowds of people, dressed in brightly colored swimsuits and beachwear, are seen strolling along the boardwalk and lounging on the sand. Neon signs: Bright neon signs advertising hotels, restaurants, and clubs line the streets, adding to the energetic atmosphere.
 
-LLMs will also sometimes hallucinate parameters that Midjourney doesn't
-support, despite my best attempts in the system prmpot to tell it not to
-do that.  It will sometimes add parameters that don't exist in Midjourney,
-like `--aperture 0.5 --focal-length 55mm -Z -D0`.  The notebook includes
-a unit-tested function for removing stuff like that from prompts, written
-by GPT4.
-
-## Example
-
-### Image description
-> A vintage postcard from Miami from the 1920s.
-
-### Generated Midjourney prompt
-> A sepia-toned vintage postcard from Miami in the 1920s, featuring a bustling
-> oceanfront street. Palm trees line the sidewalk, and brightly-colored Art Deco
-> buildings tower over the scene.   - The ocean in the background is a deep blue,
-> with white-capped waves crashing against the shore. - The people walking along
-> the street wear flapper dresses and straw hats, and some carry parasols. - One
-> of the buildings prominently featured has a neon sign with the word "Miami" in
-> bold, cursive letters. - A horse-drawn carriage is visible in the foreground,
-> with a driver in a top hat and tails.  - The sky is a bright, cloudless blue,
-> with seagulls flying overhead.  --aspect 3:2 --q 3 --chaos 66 --no signature
-
-### Processed prompt
-> A sepia-toned vintage postcard from Miami in the 1920s, featuring a bustling
-> oceanfront street. Palm trees line the sidewalk, and brightly-colored Art Deco
-> buildings tower over the scene. The ocean in the background is a deep blue, with
-> white-capped waves crashing against the shore. The people walking along the
-> street wear flapper dresses and straw hats, and some carry parasols. One of the
-> buildings prominently featured has a neon sign with the word "Miami" in bold,
-> cursive letters. A horse-drawn carriage is visible in the foreground, with a
-> driver in a top hat and tails. The sky is a bright, cloudless blue, with
-> seagulls flying overhead. --aspect 3:2 --chaos 66 --no signature
-
-The notebook will copy the processed prompt to your clipboard so that you
-can paste it into Discord to the Midjourney bot.
+The notebook will parse that into a hash and then combine the values into a paragraph.  Then, it will generate a parameters string based on the settings in the UI widgets.  And finally, it will concatenate the prompt and the parameters string.
 
 ## Prerequisites
 
