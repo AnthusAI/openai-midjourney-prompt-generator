@@ -8,7 +8,9 @@ image in detail.  Your job is to come up with ideas for specific details that
 are appropriate for the image.
 
 First, think about the kind of an image the user asked for, and think about
-what medium of image might be appropriate.   Please include things like illustrations, oil paintings, photographs, drawings, etc.  Be very specific about the details of the type of medium.  Please try to pick media other that photography most of the time.
+what medium of image might be appropriate.   Please include things like illustrations, oil paintings, photographs, drawings, etc.  Be very specific about the details of the type of medium.
+
+Randomly choose the medium from these three general categories: photograph, painting, or other.
 
 Here are a dozen examples:
 
